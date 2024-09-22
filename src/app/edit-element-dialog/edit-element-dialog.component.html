@@ -1,0 +1,18 @@
+<h2 class="dialog__title" mat-dialog-title>Edit {{data.field}}</h2>
+<div class="dialog__content" mat-dialog-content>
+  <mat-form-field appearance="fill" class="dialog__form-field">
+    <mat-label>{{data.field}}</mat-label>
+    <input matInput [formControl]="fieldControl"/>
+    @if (fieldControl.hasError('required')) {
+      <mat-error>This field cannot be empty</mat-error>
+    }
+    @if (fieldControl.hasError('min')) {
+      <mat-error>Value must be greater than 0</mat-error>
+    }
+  </mat-form-field>
+</div>
+
+<div class="dialog__actions" mat-dialog-actions>
+  <button mat-button class="dialog__button dialog__button--cancel" (click)="onCancel()">Cancel</button>
+  <button mat-flat-button color="primary" class="dialog__button dialog__button--save" (click)="onSave()" [disabled]="fieldControl.invalid">Save</button>
+</div>

@@ -1,0 +1,53 @@
+@if (!(isLoading$ | async)) {
+  <div class="table-container">
+    <h1 class="table-container__title">Periodic Table</h1>
+
+    <div class="table-container__filter">
+      <mat-form-field class="table-container__form-field">
+        <mat-label class="table-container__label">Filter elements</mat-label>
+        <input matInput [formControl]="filterControl" placeholder="Search">
+      </mat-form-field>
+    </div>
+
+    <table mat-table [dataSource]="dataSource" class="table-container__table mat-elevation-z8">
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element" class="editable-cell" (click)="openEditDialog(element, 'name')"> 
+          {{element.name}} 
+          <mat-icon class="edit-icon">edit</mat-icon>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef> Weight </th>
+        <td mat-cell *matCellDef="let element" class="editable-cell" (click)="openEditDialog(element, 'weight')"> 
+          {{element.weight}} 
+          <mat-icon class="edit-icon">edit</mat-icon>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef> Symbol </th>
+        <td mat-cell *matCellDef="let element" class="editable-cell" (click)="openEditDialog(element, 'symbol')"> 
+          {{element.symbol}} 
+          <mat-icon class="edit-icon">edit</mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+} @else {
+  <div class="loading-overlay">
+    <div class="loading-overlay__spinner-container">
+      <mat-spinner class="loading-overlay__spinner"></mat-spinner>
+      <p class="loading-overlay__text">Please, wait...</p>
+    </div>
+  </div>
+}
